@@ -36,6 +36,7 @@
             cadastroDePedidosToolStripMenuItem = new ToolStripMenuItem();
             cadastroDeUsuáriosToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
+            btnMudarSenha = new Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -84,17 +85,28 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(201, 41);
+            label1.Location = new Point(12, 39);
             label1.Name = "label1";
             label1.Size = new Size(38, 15);
             label1.TabIndex = 2;
             label1.Text = "label1";
+            // 
+            // btnMudarSenha
+            // 
+            btnMudarSenha.Cursor = Cursors.Hand;
+            btnMudarSenha.Location = new Point(400, 39);
+            btnMudarSenha.Name = "btnMudarSenha";
+            btnMudarSenha.Size = new Size(101, 23);
+            btnMudarSenha.TabIndex = 3;
+            btnMudarSenha.Text = "Mudar senha";
+            btnMudarSenha.UseVisualStyleBackColor = true;
             // 
             // FormMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(526, 77);
+            Controls.Add(btnMudarSenha);
             Controls.Add(label1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
@@ -115,5 +127,6 @@
         private ToolStripMenuItem cadastroDePedidosToolStripMenuItem;
         private ToolStripMenuItem cadastroDeUsuáriosToolStripMenuItem;
         private Label label1;
+        private Button btnMudarSenha;
     }
 }

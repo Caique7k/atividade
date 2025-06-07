@@ -84,14 +84,25 @@ namespace atividade
                     }
                     else
                     {
+                        var linhas = File.ReadAllLines(caminhoCSV);
+                        foreach (var linha in linhas)
+                        {
+                            var dados = linha.Split(',');
+                            if (dados.Length >= 2 && dados[0].Trim().Equals(usuario, StringComparison.OrdinalIgnoreCase))
+                            {
+                                MessageBox.Show("Usuário já existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
                         using (var writer = new StreamWriter(caminhoCSV, true))
                         {
                             writer.WriteLine($"{usuario},{senha}");
                             MessageBox.Show("Usuário cadastrado com sucesso!");
                             listBox1.Items.Add($"{usuario} - {senha}");
+                            txtUsuario.Clear();
+                            txtSenha.Clear();
                         }
                     }
-
                 }
                 catch(Exception ex)
                 {
