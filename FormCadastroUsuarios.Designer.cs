@@ -31,12 +31,11 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            dataGridView1 = new DataGridView();
             txtSenha = new TextBox();
             txtUsuario = new TextBox();
             checkBox1 = new CheckBox();
             button1 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            listBox1 = new ListBox();
             SuspendLayout();
             // 
             // label1
@@ -65,16 +64,6 @@
             label3.Size = new Size(147, 15);
             label3.TabIndex = 2;
             label3.Text = "USUARIOS CADASTRADOS";
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.BackgroundColor = SystemColors.ControlLightLight;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 113);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(322, 150);
-            dataGridView1.TabIndex = 3;
             // 
             // txtSenha
             // 
@@ -113,22 +102,30 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new Point(12, 134);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(310, 94);
+            listBox1.TabIndex = 8;
+            // 
             // FormCadastroUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(346, 271);
+            ClientSize = new Size(346, 237);
+            Controls.Add(listBox1);
             Controls.Add(button1);
             Controls.Add(checkBox1);
             Controls.Add(txtUsuario);
             Controls.Add(txtSenha);
-            Controls.Add(dataGridView1);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "FormCadastroUsuarios";
             Text = "FormCadastroUsuarios";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -138,10 +135,10 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private DataGridView dataGridView1;
         private TextBox txtSenha;
         private TextBox txtUsuario;
         private CheckBox checkBox1;
         private Button button1;
+        private ListBox listBox1;
     }
 }

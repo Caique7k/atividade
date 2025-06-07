@@ -18,7 +18,42 @@ namespace atividade
             InitializeComponent();
             Usuario = usuario;
 
+            CarregarDados();
             txtSenha.UseSystemPasswordChar = true;
+        }
+
+        public void CarregarDados()
+        {
+            try
+            {
+                string caminhoCSV = "usuarios.csv";
+                if (!File.Exists(caminhoCSV))
+                {
+                    MessageBox.Show("Arquivo de usuários não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                using (var reader = new StreamReader(caminhoCSV))
+                {
+                    listBox1.Items.Clear();
+                    while (!reader.EndOfStream)
+                    {
+                        var linha = reader.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(linha))
+                        {
+                            var colunas = linha.Split(',');
+                            if (colunas.Length >= 2)
+                            {
+                                listBox1.Items.Add($"{colunas[0].Trim()} - {colunas[1].Trim()}");
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -53,8 +88,7 @@ namespace atividade
                         {
                             writer.WriteLine($"{usuario},{senha}");
                             MessageBox.Show("Usuário cadastrado com sucesso!");
-                            dataGridView1.Rows.Add(usuario, senha);
-                            this.Close();
+                            listBox1.Items.Add($"{usuario} - {senha}");
                         }
                     }
 
