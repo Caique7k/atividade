@@ -100,6 +100,7 @@
             btnMudarSenha.TabIndex = 3;
             btnMudarSenha.Text = "Mudar senha";
             btnMudarSenha.UseVisualStyleBackColor = true;
+            btnMudarSenha.Click += btnMudarSenha_Click;
             // 
             // FormMenu
             // 

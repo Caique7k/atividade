@@ -50,5 +50,12 @@ namespace atividade
                 MessageBox.Show("Apenas usuários administradores podem acessar.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void btnMudarSenha_Click(object sender, EventArgs e)
+        {
+            FormNovaSenha formNovaSenha = new FormNovaSenha(Usuario);
+            formNovaSenha.Show();
+
+        }
     }
 }
