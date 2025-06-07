@@ -58,24 +58,28 @@
             cadastroDeToolStripMenuItem.Name = "cadastroDeToolStripMenuItem";
             cadastroDeToolStripMenuItem.Size = new Size(127, 20);
             cadastroDeToolStripMenuItem.Text = "Cadastro de Clientes";
+            cadastroDeToolStripMenuItem.Click += cadastroDeToolStripMenuItem_Click;
             // 
             // cadastroDeProdutosToolStripMenuItem
             // 
             cadastroDeProdutosToolStripMenuItem.Name = "cadastroDeProdutosToolStripMenuItem";
             cadastroDeProdutosToolStripMenuItem.Size = new Size(133, 20);
             cadastroDeProdutosToolStripMenuItem.Text = "Cadastro de Produtos";
+            cadastroDeProdutosToolStripMenuItem.Click += cadastroDeProdutosToolStripMenuItem_Click;
             // 
             // cadastroDePedidosToolStripMenuItem
             // 
             cadastroDePedidosToolStripMenuItem.Name = "cadastroDePedidosToolStripMenuItem";
             cadastroDePedidosToolStripMenuItem.Size = new Size(127, 20);
             cadastroDePedidosToolStripMenuItem.Text = "Cadastro de Pedidos";
+            cadastroDePedidosToolStripMenuItem.Click += cadastroDePedidosToolStripMenuItem_Click;
             // 
             // cadastroDeUsuáriosToolStripMenuItem
             // 
             cadastroDeUsuáriosToolStripMenuItem.Name = "cadastroDeUsuáriosToolStripMenuItem";
             cadastroDeUsuáriosToolStripMenuItem.Size = new Size(130, 20);
             cadastroDeUsuáriosToolStripMenuItem.Text = "Cadastro de Usuários";
+            cadastroDeUsuáriosToolStripMenuItem.Click += cadastroDeUsuáriosToolStripMenuItem_Click;
             // 
             // label1
             // 
