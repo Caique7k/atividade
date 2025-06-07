@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            button1 = new Button();
+            btnSalvar = new Button();
             txtNovaSenha = new TextBox();
             SuspendLayout();
             // 
@@ -42,14 +42,15 @@
             label1.TabIndex = 0;
             label1.Text = "NOVA SENHA";
             // 
-            // button1
+            // btnSalvar
             // 
-            button1.Location = new Point(198, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 1;
-            button1.Text = "SALVAR";
-            button1.UseVisualStyleBackColor = true;
+            btnSalvar.Location = new Point(198, 12);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(75, 23);
+            btnSalvar.TabIndex = 1;
+            btnSalvar.Text = "SALVAR";
+            btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // txtNovaSenha
             // 
@@ -64,7 +65,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(285, 55);
             Controls.Add(txtNovaSenha);
-            Controls.Add(button1);
+            Controls.Add(btnSalvar);
             Controls.Add(label1);
             Name = "FormNovaSenha";
             Text = "FormNovaSenha";
@@ -75,7 +76,7 @@
         #endregion
 
         private Label label1;
-        private Button button1;
+        private Button btnSalvar;
         private TextBox txtNovaSenha;
     }
 }
