@@ -40,7 +40,8 @@ namespace atividade
                         var colunas = linha.Split(',');
                         if (colunas.Length >= 2 && colunas[0].Trim() == usuario && colunas[1].Trim() == senha) // Verifica se o usuário e senha é a mesma que o CSV
                         {
-                            MessageBox.Show("Usuário autenticado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FormMenu formMenu = new FormMenu(usuario);
+                            formMenu.Show();
                             return true;
                         }
                     }
