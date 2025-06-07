@@ -42,7 +42,7 @@ namespace atividade
                         {
                             FormMenu formMenu = new FormMenu(usuario);
                             formMenu.Show();
-                            this.Close();
+                            this.Hide();
                             return true;
                         }
                     }

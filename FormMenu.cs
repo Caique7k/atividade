@@ -40,8 +40,15 @@ namespace atividade
 
         private void cadastroDeUsuáriosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormCadastroUsuarios formCadastroUsuarios = new FormCadastroUsuarios();
-            formCadastroUsuarios.Show();
+            if (Usuario == "ADMIN")
+            {
+                FormCadastroUsuarios formCadastroUsuarios = new FormCadastroUsuarios(Usuario);
+                formCadastroUsuarios.Show();
+            }
+            else
+            {
+                MessageBox.Show("Apenas usuários administradores podem acessar.", "Acesso Negado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

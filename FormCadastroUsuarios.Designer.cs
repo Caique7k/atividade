@@ -28,12 +28,105 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "FormCadastroUsuarios";
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            dataGridView1 = new DataGridView();
+            txtSenha = new TextBox();
+            txtUsuario = new TextBox();
+            checkBox1 = new CheckBox();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            SuspendLayout();
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(59, 15);
+            label1.TabIndex = 0;
+            label1.Text = "USUARIO:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 48);
+            label2.Name = "label2";
+            label2.Size = new Size(48, 15);
+            label2.TabIndex = 1;
+            label2.Text = "SENHA:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 95);
+            label3.Name = "label3";
+            label3.Size = new Size(147, 15);
+            label3.TabIndex = 2;
+            label3.Text = "USUARIOS CADASTRADOS";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.BackgroundColor = SystemColors.ControlLightLight;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(12, 113);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(322, 150);
+            dataGridView1.TabIndex = 3;
+            // 
+            // txtSenha
+            // 
+            txtSenha.Location = new Point(77, 45);
+            txtSenha.Name = "txtSenha";
+            txtSenha.Size = new Size(100, 23);
+            txtSenha.TabIndex = 4;
+            // 
+            // txtUsuario
+            // 
+            txtUsuario.Location = new Point(77, 6);
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new Size(100, 23);
+            txtUsuario.TabIndex = 5;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(221, 30);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(101, 19);
+            checkBox1.TabIndex = 6;
+            checkBox1.Text = "Mostrar senha";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // FormCadastroUsuarios
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(346, 271);
+            Controls.Add(checkBox1);
+            Controls.Add(txtUsuario);
+            Controls.Add(txtSenha);
+            Controls.Add(dataGridView1);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Name = "FormCadastroUsuarios";
+            Text = "FormCadastroUsuarios";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private DataGridView dataGridView1;
+        private TextBox txtSenha;
+        private TextBox txtUsuario;
+        private CheckBox checkBox1;
     }
 }

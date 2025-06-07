@@ -12,9 +12,20 @@ namespace atividade
 {
     public partial class FormCadastroUsuarios : Form
     {
-        public FormCadastroUsuarios()
+        public string Usuario { get; set; }
+        public FormCadastroUsuarios(string usuario)
         {
             InitializeComponent();
+            Usuario = usuario;
+
+            txtSenha.UseSystemPasswordChar = true;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            bool mostrar = checkBox1.Checked;
+            txtSenha.UseSystemPasswordChar = !mostrar;
         }
     }
+
 }
