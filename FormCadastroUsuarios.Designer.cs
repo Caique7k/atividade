@@ -35,6 +35,7 @@
             txtSenha = new TextBox();
             txtUsuario = new TextBox();
             checkBox1 = new CheckBox();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -92,6 +93,7 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
+            checkBox1.Cursor = Cursors.Hand;
             checkBox1.Location = new Point(221, 30);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(101, 19);
@@ -100,11 +102,23 @@
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
+            // button1
+            // 
+            button1.Cursor = Cursors.Hand;
+            button1.Location = new Point(221, 75);
+            button1.Name = "button1";
+            button1.Size = new Size(82, 23);
+            button1.TabIndex = 7;
+            button1.Text = "CADASTRAR";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // FormCadastroUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(346, 271);
+            Controls.Add(button1);
             Controls.Add(checkBox1);
             Controls.Add(txtUsuario);
             Controls.Add(txtSenha);
@@ -128,5 +142,6 @@
         private TextBox txtSenha;
         private TextBox txtUsuario;
         private CheckBox checkBox1;
+        private Button button1;
     }
 }
