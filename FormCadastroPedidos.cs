@@ -16,9 +16,43 @@ namespace atividade
         public FormCadastroPedidos()
         {
             InitializeComponent();
+            BuscarProdutos();
         }
 
-       
+       private void BuscarProdutos()
+        {
+            try
+            {
+                string caminhoCSV = "cadastroProdutos.csv";
+                if (!File.Exists(caminhoCSV))
+                {
+                    MessageBox.Show("Arquivo de produtos não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                using (var reader = new StreamReader(caminhoCSV))
+                {
+                    comboBoxProdutos.Items.Clear();
+                    while (!reader.EndOfStream)
+                    {
+                        var linha = reader.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(linha))
+                        {
+                            var colunas = linha.Split(',');
+                            if (colunas.Length >= 2)
+                            {
+                                string nomeProduto = colunas[1].Trim();
+                                string precoProduto = colunas[2].Trim();
+                                comboBoxProdutos.Items.Add($"{nomeProduto}");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar produtos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void btnBucarCpf_Click(object sender, EventArgs e)
         {
