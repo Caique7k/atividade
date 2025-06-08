@@ -12,6 +12,7 @@ namespace atividade
 {
     public partial class FormCadastroUsuarios : Form
     {
+        private UsuarioSelecionado usuarioSelecionadoAtual;
         public string Usuario { get; set; }
         public FormCadastroUsuarios(string usuario)
         {
@@ -23,7 +24,11 @@ namespace atividade
             listBox1.DoubleClick += listBox1_DoubleClick;
 
         }
-
+        public class UsuarioSelecionado
+        {
+            public string Nome { get; set; }
+            public string Senha { get; set; }
+        }
         public void CarregarDados()
         {
             try
@@ -90,11 +95,9 @@ namespace atividade
                         {
                             try
                             {
-                                
+
                                 string linhaSelecionada = listBox1.SelectedItem.ToString();
                                 string usuarioOriginal = linhaSelecionada.Split('-')[0].Trim();
-
-
 
                                 var linhas = File.ReadAllLines(caminhoCSV).ToList();
 
@@ -103,20 +106,20 @@ namespace atividade
                                     var dados = linhas[i].Split(',');
                                     if (dados[0].Trim().Equals(usuarioOriginal, StringComparison.OrdinalIgnoreCase))
                                     {
-                                        linhas[i] = $"{usuario},{senha}"; 
+                                        linhas[i] = $"{usuario},{senha}";
                                         break;
                                     }
                                 }
 
-                                File.WriteAllLines(caminhoCSV, linhas); 
+                                File.WriteAllLines(caminhoCSV, linhas);
 
                                 MessageBox.Show("Usuário atualizado com sucesso!");
 
-                                
+
                                 txtUsuario.Clear();
                                 txtSenha.Clear();
                                 button1.Text = "Cadastrar";
-                                CarregarDados(); 
+                                CarregarDados();
                             }
                             catch (Exception ex)
                             {
@@ -168,10 +171,18 @@ namespace atividade
                 string linhaSelecionada = listBox1.SelectedItem.ToString();
                 var partes = linhaSelecionada.Split('-');
 
+               
+
                 if (partes.Length >= 2)
                 {
                     txtUsuario.Text = partes[0].Trim();
                     txtSenha.Text = partes[1].Trim();
+
+                    usuarioSelecionadoAtual = new UsuarioSelecionado
+                    {
+                        Nome = partes[0].Trim(),
+                        Senha = partes[1].Trim()
+                    };
 
                     button1.Text = "Atualizar";
                 }
@@ -182,6 +193,58 @@ namespace atividade
             }
         }
 
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (usuarioSelecionadoAtual == null )
+            {
+                MessageBox.Show("Nenhum usuário selecionado para exclusão.");
+                return;
+            }
+            else
+            {
+                var confirmar = MessageBox.Show($"Deseja realmente excluir o usuário '{usuarioSelecionadoAtual.Nome}'?", "Confirmar exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (confirmar == DialogResult.Yes)
+                {
+                    try
+                    {
+                        string caminhoCSV = "usuarios.csv";
+                        var linhas = File.ReadAllLines(caminhoCSV).ToList();
+                        bool removido = false;
+
+                        for (int i = 0; i < linhas.Count; i++)
+                        {
+                            var dados = linhas[i].Split(',');
+                            if (dados.Length >= 2 && dados[0].Trim().Equals(usuarioSelecionadoAtual.Nome, StringComparison.OrdinalIgnoreCase))
+                            {
+                                linhas.RemoveAt(i);
+                                removido = true;
+                                break;
+                            }
+                        }
+
+                        if (removido)
+                        {
+                            File.WriteAllLines(caminhoCSV, linhas);
+                            MessageBox.Show("Usuário excluído com sucesso.");
+                            CarregarDados();
+                            txtUsuario.Clear();
+                            txtSenha.Clear();
+                            button1.Text = "Cadastrar";
+                            usuarioSelecionadoAtual = null;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Usuário não encontrado para exclusão.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao excluir usuário: " + ex.Message);
+                    }
+                }
+            }
+        }
     }
 
 }

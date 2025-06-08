@@ -36,6 +36,7 @@
             checkBox1 = new CheckBox();
             button1 = new Button();
             listBox1 = new ListBox();
+            btnExcluir = new Button();
             SuspendLayout();
             // 
             // label1
@@ -112,11 +113,22 @@
             listBox1.TabIndex = 8;
             listBox1.DoubleClick += listBox1_DoubleClick;
             // 
+            // btnExcluir
+            // 
+            btnExcluir.Location = new Point(221, 105);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(82, 23);
+            btnExcluir.TabIndex = 9;
+            btnExcluir.Text = "EXCLUIR";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
+            // 
             // FormCadastroUsuarios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(346, 237);
+            Controls.Add(btnExcluir);
             Controls.Add(listBox1);
             Controls.Add(button1);
             Controls.Add(checkBox1);
@@ -141,5 +153,6 @@
         private CheckBox checkBox1;
         private Button button1;
         private ListBox listBox1;
+        private Button btnExcluir;
     }
 }
