@@ -17,6 +17,8 @@ namespace atividade
         {
             InitializeComponent();
             CarregaDados();
+
+            listBox1.DoubleClick += listBox1_DoubleClick;
         }
         public class Produtoselecionado
         {
@@ -100,6 +102,25 @@ namespace atividade
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro ao salvar os dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                var item = listBox1.SelectedItem.ToString();
+                var partes = item.Split('-');
+                if (partes.Length >= 4)
+                {
+                    produtoselecionado = new Produtoselecionado
+                    {
+                        IDProd = partes[0].Trim()
+                    };
+                    txtboxIDProd.Text = produtoselecionado.IDProd;
+                    txtboxNome.Text = partes[1].Trim();
+                    txtboxPreco.Text = partes[2].Trim();
+                    txtboxDesc.Text = partes[3].Trim();
                 }
             }
         }
