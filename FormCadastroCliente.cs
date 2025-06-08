@@ -110,7 +110,30 @@ namespace atividade
             }
             else
             {
+                try
+                {
 
+                    string caminho = "cadastroClientes.csv";
+                    if (!File.Exists(caminho))
+                    {
+                        MessageBox.Show("Arquivo de cadastro não encontrado. Criando novo arquivo.");
+                        return;
+                    }
+                    else
+                    {
+                        using (StreamWriter sw = new StreamWriter(caminho, true))
+                        {
+                            sw.WriteLine($"{txtboxNOME.Text},{txtboxCPF.Text},{txtboxEMAIL.Text},{txtboxCEP.Text},{txtboxLOGRADOURO.Text},{txtboxNUMERO.Text},{txtboxBAIRRO.Text},{txtboxCIDADE.Text},{txtboxESTADO.Text},{txtboxTELEFONE.Text},{txtboxWHATSAPP.Text}");
+                        }
+                        MessageBox.Show("Dados salvos com sucesso!");
+                        this.Close();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao salvar os dados. Verifique as informações e tente novamente.");
+                }
             }
         }
     }
