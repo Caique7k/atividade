@@ -16,6 +16,7 @@ namespace atividade
 {
     public partial class FormCadastroCliente : Form
     {
+        private ClienteSelecionado clienteSelecionadoAtual;
         public class Endereco
         {
             public string Cep { get; set; }
@@ -29,7 +30,10 @@ namespace atividade
             public string Ddd { get; set; }
             public string Siafi { get; set; }
         }
-
+        public class ClienteSelecionado
+        {
+            public string cpf { get; set; }
+        }
         public FormCadastroCliente()
         {
             InitializeComponent();
@@ -38,6 +42,9 @@ namespace atividade
             txtboxCIDADE.ReadOnly = true;
             txtboxLOGRADOURO.ReadOnly = true;
             txtboxESTADO.ReadOnly = true;
+
+
+            listBox1.DoubleClick += listBox1_DoubleClick;
 
 
         }
@@ -155,7 +162,7 @@ namespace atividade
                     }
                     else
                     {
-                       string cpf = txtboxCPF.Text.Trim();
+                        string cpf = txtboxCPF.Text.Trim();
                         using (StreamReader sr = new StreamReader(caminho))
                         {
                             string linha;
@@ -185,7 +192,40 @@ namespace atividade
                 }
             }
         }
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+           
+                if (listBox1.SelectedItem != null)
+                {
+                    string[] dados = listBox1.SelectedItem.ToString().Split('-');
+                    if (dados.Length >= 11)
+                    {
+                        txtboxNOME.Text = dados[0].Trim();
+                        txtboxCPF.Text = dados[1].Trim();
+                        txtboxEMAIL.Text = dados[2].Trim();
+                        txtboxCEP.Text = dados[3].Trim();
+                        txtboxLOGRADOURO.Text = dados[4].Trim();
+                        txtboxNUMERO.Text = dados[5].Trim();
+                        txtboxBAIRRO.Text = dados[6].Trim();
+                        txtboxCIDADE.Text = dados[7].Trim();
+                        txtboxESTADO.Text = dados[8].Trim();
+                        txtboxTELEFONE.Text = dados[9].Trim();
+                        txtboxWHATSAPP.Text = dados[10].Trim();
+                        clienteSelecionadoAtual = new ClienteSelecionado
+                        {
+                            cpf = txtboxCPF.Text.Trim()
+                        };
+                    btnSALVAR.Text = "Atualizar";
+                }
+                else
+                {
+                    MessageBox.Show("Selecione um cliente da lista para editar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-       
+                    
+            }
+            }
+        }
     }
-}
+

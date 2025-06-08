@@ -293,6 +293,7 @@
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(435, 94);
             listBox1.TabIndex = 27;
+            listBox1.DoubleClick += listBox1_DoubleClick;
             // 
             // FormCadastroCliente
             // 
