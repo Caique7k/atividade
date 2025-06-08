@@ -174,5 +174,66 @@ namespace atividade
                 }
             }
         }
+
+        private void btnEXCLUIR_Click(object sender, EventArgs e)
+        {
+            if (produtoselecionado == null)
+            {
+                MessageBox.Show("Nenhum produto selecionado para exclusão.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                try
+                {
+                    var confirmar = MessageBox.Show($"Deseja realmente excluir o produto '{produtoselecionado.IDProd}'?", "Confirmar exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirmar == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            string caminhoCSV = "cadastroProdutos.csv";
+                            var linhas = File.ReadAllLines(caminhoCSV).ToList();
+                            bool removido = false;
+
+                            for (int i = 0; i < linhas.Count; i++)
+                            {
+                                var dados = linhas[i].Split(',');
+                                if (dados.Length >= 2 && dados[0].Trim().Equals(produtoselecionado.IDProd, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    linhas.RemoveAt(i);
+                                    removido = true;
+                                    break;
+                                }
+                            }
+
+                            if (removido)
+                            {
+                                File.WriteAllLines(caminhoCSV, linhas);
+                                MessageBox.Show("Produto excluído com sucesso.");
+                                CarregaDados();
+                                txtboxDesc.Clear();
+                                txtboxIDProd.Clear();
+                                txtboxNome.Clear();
+                                txtboxPreco.Clear();
+                                produtoselecionado = null;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Produto não encontrado para exclusão.");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Erro ao excluir produto: " + ex.Message);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao excluir o produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+        }
     }
 }

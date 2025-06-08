@@ -125,6 +125,7 @@
             btnEXCLUIR.TabIndex = 9;
             btnEXCLUIR.Text = "EXCLUIR";
             btnEXCLUIR.UseVisualStyleBackColor = true;
+            btnEXCLUIR.Click += btnEXCLUIR_Click;
             // 
             // btnCANCELAR
             // 
