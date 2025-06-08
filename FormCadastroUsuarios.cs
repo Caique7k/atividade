@@ -20,6 +20,8 @@ namespace atividade
 
             CarregarDados();
             txtSenha.UseSystemPasswordChar = true;
+            listBox1.DoubleClick += listBox1_DoubleClick;
+
         }
 
         public void CarregarDados()
@@ -50,7 +52,7 @@ namespace atividade
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Erro ao carregar dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -84,35 +86,102 @@ namespace atividade
                     }
                     else
                     {
-                        var linhas = File.ReadAllLines(caminhoCSV);
-                        foreach (var linha in linhas)
+                        if (button1.Text == "Atualizar" && listBox1.SelectedItem != null)
                         {
-                            var dados = linha.Split(',');
-                            if (dados.Length >= 2 && dados[0].Trim().Equals(usuario, StringComparison.OrdinalIgnoreCase))
+                            try
                             {
-                                MessageBox.Show("Usuário já existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                
+                                string linhaSelecionada = listBox1.SelectedItem.ToString();
+                                string usuarioOriginal = linhaSelecionada.Split('-')[0].Trim();
+
+
+
+                                var linhas = File.ReadAllLines(caminhoCSV).ToList();
+
+                                for (int i = 0; i < linhas.Count; i++)
+                                {
+                                    var dados = linhas[i].Split(',');
+                                    if (dados[0].Trim().Equals(usuarioOriginal, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        linhas[i] = $"{usuario},{senha}"; 
+                                        break;
+                                    }
+                                }
+
+                                File.WriteAllLines(caminhoCSV, linhas); 
+
+                                MessageBox.Show("Usuário atualizado com sucesso!");
+
+                                
+                                txtUsuario.Clear();
+                                txtSenha.Clear();
+                                button1.Text = "Cadastrar";
+                                CarregarDados(); 
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Erro ao atualizar usuário: " + ex.Message);
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                var linhas = File.ReadAllLines(caminhoCSV);
+                                foreach (var linha in linhas)
+                                {
+                                    var dados = linha.Split(',');
+                                    if (dados.Length >= 2 && dados[0].Trim().Equals(usuario, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        MessageBox.Show("Usuário já existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        return;
+                                    }
+                                }
+                                using (var writer = new StreamWriter(caminhoCSV, true))
+                                {
+                                    writer.WriteLine($"{usuario},{senha}");
+                                    MessageBox.Show("Usuário cadastrado com sucesso!");
+                                    listBox1.Items.Add($"{usuario} - {senha}");
+                                    txtUsuario.Clear();
+                                    txtSenha.Clear();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Erro ao cadastrar usuário: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
                         }
-                        using (var writer = new StreamWriter(caminhoCSV, true))
-                        {
-                            writer.WriteLine($"{usuario},{senha}");
-                            MessageBox.Show("Usuário cadastrado com sucesso!");
-                            listBox1.Items.Add($"{usuario} - {senha}");
-                            txtUsuario.Clear();
-                            txtSenha.Clear();
-                        }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Erro ao cadastrar usuário: " + ex.Message);
                     return;
                 }
             }
         }
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                string linhaSelecionada = listBox1.SelectedItem.ToString();
+                var partes = linhaSelecionada.Split('-');
 
-       
+                if (partes.Length >= 2)
+                {
+                    txtUsuario.Text = partes[0].Trim();
+                    txtSenha.Text = partes[1].Trim();
+
+                    button1.Text = "Atualizar";
+                }
+                else
+                {
+                    MessageBox.Show("Seleção inválida. Por favor, selecione um usuário válido.");
+                }
+            }
+        }
+
     }
 
 }

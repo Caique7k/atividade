@@ -110,6 +110,7 @@
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(310, 94);
             listBox1.TabIndex = 8;
+            listBox1.DoubleClick += listBox1_DoubleClick;
             // 
             // FormCadastroUsuarios
             // 
