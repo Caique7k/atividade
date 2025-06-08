@@ -261,6 +261,7 @@
             btnSALVAR.TabIndex = 24;
             btnSALVAR.Text = "SALVAR";
             btnSALVAR.UseVisualStyleBackColor = true;
+            btnSALVAR.Click += btnSALVAR_Click;
             // 
             // btnBuscarCep
             // 

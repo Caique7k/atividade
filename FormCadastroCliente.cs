@@ -95,9 +95,22 @@ namespace atividade
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Erro ao buscar CEP: " + ex.Message);
+            }
+        }
+
+        private void btnSALVAR_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtboxNOME.Text) || string.IsNullOrEmpty(txtboxCPF.Text) || string.IsNullOrEmpty(txtboxEMAIL.Text) || string.IsNullOrEmpty(txtboxCEP.Text) || string.IsNullOrEmpty(txtboxLOGRADOURO.Text) || string.IsNullOrEmpty(txtboxNUMERO.Text) || string.IsNullOrEmpty(txtboxBAIRRO.Text) || string.IsNullOrEmpty(txtboxCIDADE.Text) || string.IsNullOrEmpty(txtboxESTADO.Text) || string.IsNullOrEmpty(txtboxTELEFONE.Text) || string.IsNullOrEmpty(txtboxWHATSAPP.Text))
+            {
+                MessageBox.Show("Por favor, preencha todos os campos obrigatórios.");
+                return;
+            }
+            else
+            {
+
             }
         }
     }
