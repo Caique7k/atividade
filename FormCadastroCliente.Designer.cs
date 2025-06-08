@@ -56,6 +56,7 @@
             btnBuscarCep = new Button();
             label13 = new Label();
             listBox1 = new ListBox();
+            btnExcluir = new Button();
             SuspendLayout();
             // 
             // label1
@@ -295,11 +296,22 @@
             listBox1.TabIndex = 27;
             listBox1.DoubleClick += listBox1_DoubleClick;
             // 
+            // btnExcluir
+            // 
+            btnExcluir.Location = new Point(376, 334);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(75, 23);
+            btnExcluir.TabIndex = 28;
+            btnExcluir.Text = "EXCLUIR";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
+            // 
             // FormCadastroCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(463, 492);
+            Controls.Add(btnExcluir);
             Controls.Add(listBox1);
             Controls.Add(label13);
             Controls.Add(btnBuscarCep);
@@ -364,5 +376,6 @@
         private Button btnBuscarCep;
         private Label label13;
         private ListBox listBox1;
+        private Button btnExcluir;
     }
 }
