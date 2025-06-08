@@ -54,6 +54,8 @@
             btnCANCELAR = new Button();
             btnSALVAR = new Button();
             btnBuscarCep = new Button();
+            label13 = new Label();
+            listBox1 = new ListBox();
             SuspendLayout();
             // 
             // label1
@@ -274,11 +276,31 @@
             btnBuscarCep.UseVisualStyleBackColor = true;
             btnBuscarCep.Click += btnBuscarCep_Click;
             // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(16, 338);
+            label13.Name = "label13";
+            label13.Size = new Size(160, 15);
+            label13.TabIndex = 26;
+            label13.Text = "CLIENTES JA CADASTRADOS:";
+            // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new Point(16, 370);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(435, 94);
+            listBox1.TabIndex = 27;
+            // 
             // FormCadastroCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(463, 304);
+            ClientSize = new Size(463, 492);
+            Controls.Add(listBox1);
+            Controls.Add(label13);
             Controls.Add(btnBuscarCep);
             Controls.Add(btnSALVAR);
             Controls.Add(btnCANCELAR);
@@ -339,5 +361,7 @@
         private Button btnCANCELAR;
         private Button btnSALVAR;
         private Button btnBuscarCep;
+        private Label label13;
+        private ListBox listBox1;
     }
 }

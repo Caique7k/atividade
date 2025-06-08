@@ -33,6 +33,7 @@ namespace atividade
         public FormCadastroCliente()
         {
             InitializeComponent();
+            carregaDados();
             txtboxBAIRRO.ReadOnly = true;
             txtboxCIDADE.ReadOnly = true;
             txtboxLOGRADOURO.ReadOnly = true;
@@ -44,6 +45,39 @@ namespace atividade
         private void btnCANCELAR_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void carregaDados()
+        {
+            string caminhoCSV = "cadastroClientes.csv";
+            if (!File.Exists(caminhoCSV))
+            {
+                MessageBox.Show("Arquivo de cadastro não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                listBox1.Items.Clear();
+                using (StreamReader sr = new StreamReader(caminhoCSV))
+                {
+                    string linha;
+                    while ((linha = sr.ReadLine()) != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(linha))
+                        {
+                            var colunas = linha.Split(',');
+                            if (colunas.Length >= 11)
+                            {
+                                listBox1.Items.Add($"{colunas[0].Trim()} - {colunas[1].Trim()} - {colunas[2].Trim()} - {colunas[3].Trim()} - {colunas[4].Trim()} - {colunas[5].Trim()} - {colunas[6].Trim()} - {colunas[7].Trim()} - {colunas[8].Trim()} - {colunas[9].Trim()} - {colunas[10].Trim()}");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar os dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
@@ -141,7 +175,6 @@ namespace atividade
                             string linha = $"{txtboxNOME.Text.Trim()},{txtboxCPF.Text.Trim()},{txtboxEMAIL.Text.Trim()},{txtboxCEP.Text.Trim()},{txtboxLOGRADOURO.Text.Trim()},{txtboxNUMERO.Text.Trim()},{txtboxBAIRRO.Text.Trim()},{txtboxCIDADE.Text.Trim()},{txtboxESTADO.Text.Trim()},{txtboxTELEFONE.Text.Trim()},{txtboxWHATSAPP.Text.Trim()}";
                             sw.WriteLine(linha);
                             MessageBox.Show("Dados salvos com sucesso!");
-                            this.Close();
                         }
                     }
 
@@ -153,34 +186,6 @@ namespace atividade
             }
         }
 
-        private bool VerificaCpf()
-        {
-            string cpf = txtboxCPF.Text.Trim();
-            if (cpf.Length != 11 || !cpf.All(char.IsDigit))
-            {
-                MessageBox.Show("CPF inválido. Deve conter 11 dígitos numéricos.");
-                return false;
-            }
-            string caminho = "cadastroClientes.csv";
-            if (!File.Exists(caminho))
-            {
-                MessageBox.Show("Arquivo de cadastro não encontrado.");
-                return false;
-            }
-            using (StreamReader sr = new StreamReader(caminho))
-            {
-                string linha;
-                while ((linha = sr.ReadLine()) != null)
-                {
-                    var colunas = linha.Split(',');
-                    if (colunas.Length > 1 && colunas[1].Trim() == cpf)
-                    {
-                        MessageBox.Show("CPF já cadastrado.");
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
+       
     }
 }
