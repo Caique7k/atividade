@@ -75,33 +75,76 @@ namespace atividade
             {
                 string caminho = "cadastroProdutos.csv";
                 string idProd = txtboxIDProd.Text.Trim();
-                try
+                if (!File.Exists(caminho))
                 {
-                    var linhas = File.ReadAllLines(caminho);
-                    foreach (var linha in linhas)
-                    {
-                        var dados = linha.Split(',');
-                        if (dados.Length >= 2 && dados[0].Trim().Equals(idProd, StringComparison.OrdinalIgnoreCase))
-                        {
-                            MessageBox.Show("Id do produto já existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    }
-                    using (FileStream fs = new FileStream(caminho, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
-                    using (StreamWriter sw = new StreamWriter(fs))
-                    {
-                        sw.WriteLine($"{txtboxIDProd.Text.Trim()},{txtboxNome.Text.Trim()},{txtboxPreco.Text.Trim()},{txtboxDesc.Text.Trim()}");
-                    }
-                    MessageBox.Show("Produto cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CarregaDados();
-                    txtboxIDProd.Clear();
-                    txtboxNome.Clear();
-                    txtboxPreco.Clear();
-                    txtboxDesc.Clear();
+                    MessageBox.Show("Arquivo de cadastro não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                catch (Exception ex)
+
+                if (btnSALVAR.Text == "Atualizar" && produtoselecionado != null)
                 {
-                    MessageBox.Show("Erro ao salvar os dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        string linhaSelecionada = listBox1.SelectedItem.ToString();
+                        string produtoOriginal = linhaSelecionada.Split('-')[0].Trim();
+
+                        var linhas = File.ReadAllLines(caminho).ToList();
+
+                        for (int i = 0; i < linhas.Count; i++)
+                        {
+                            var dados = linhas[i].Split(',');
+                            if (dados[0].Trim().Equals(produtoOriginal, StringComparison.OrdinalIgnoreCase))
+                            {
+                                linhas[i] = $"{txtboxIDProd.Text.Trim()},{txtboxNome.Text.Trim()},{txtboxPreco.Text.Trim()},{txtboxDesc.Text.Trim()}";
+                                File.WriteAllLines(caminho, linhas);
+                                break;
+                            }
+                        }
+                        MessageBox.Show("Produto atualizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CarregaDados();
+                        txtboxDesc.Clear();
+                        txtboxIDProd.Clear();
+                        txtboxNome.Clear();
+                        txtboxPreco.Clear();
+                        btnSALVAR.Text = "Salvar";
+                        produtoselecionado = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao atualizar os dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        var linhas = File.ReadAllLines(caminho);
+                        foreach (var linha in linhas)
+                        {
+                            var dados = linha.Split(',');
+                            if (dados.Length >= 2 && dados[0].Trim().Equals(idProd, StringComparison.OrdinalIgnoreCase))
+                            {
+                                MessageBox.Show("Id do produto já existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
+                        using (FileStream fs = new FileStream(caminho, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+                        using (StreamWriter sw = new StreamWriter(fs))
+                        {
+                            sw.WriteLine($"{txtboxIDProd.Text.Trim()},{txtboxNome.Text.Trim()},{txtboxPreco.Text.Trim()},{txtboxDesc.Text.Trim()}");
+                        }
+                        MessageBox.Show("Produto cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CarregaDados();
+                        txtboxIDProd.Clear();
+                        txtboxNome.Clear();
+                        txtboxPreco.Clear();
+                        txtboxDesc.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao salvar os dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -121,6 +164,13 @@ namespace atividade
                     txtboxNome.Text = partes[1].Trim();
                     txtboxPreco.Text = partes[2].Trim();
                     txtboxDesc.Text = partes[3].Trim();
+                    btnSALVAR.Text = "Atualizar";
+
+                }
+
+                else
+                {
+                    MessageBox.Show("Seleção inválida.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
