@@ -72,8 +72,19 @@ namespace atividade
             else
             {
                 string caminho = "cadastroProdutos.csv";
+                string idProd = txtboxIDProd.Text.Trim();
                 try
                 {
+                    var linhas = File.ReadAllLines(caminho);
+                    foreach (var linha in linhas)
+                    {
+                        var dados = linha.Split(',');
+                        if (dados.Length >= 2 && dados[0].Trim().Equals(idProd, StringComparison.OrdinalIgnoreCase))
+                        {
+                            MessageBox.Show("Id do produto já existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
                     using (FileStream fs = new FileStream(caminho, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
                     using (StreamWriter sw = new StreamWriter(fs))
                     {
