@@ -121,12 +121,28 @@ namespace atividade
                     }
                     else
                     {
+                       string cpf = txtboxCPF.Text.Trim();
+                        using (StreamReader sr = new StreamReader(caminho))
+                        {
+                            string linha;
+                            while ((linha = sr.ReadLine()) != null)
+                            {
+                                var colunas = linha.Split(',');
+                                if (colunas.Length > 1 && colunas[1].Trim() == cpf)
+                                {
+                                    MessageBox.Show("CPF já cadastrado.");
+                                    return;
+                                }
+                            }
+
+                        }
                         using (StreamWriter sw = new StreamWriter(caminho, true))
                         {
-                            sw.WriteLine($"{txtboxNOME.Text},{txtboxCPF.Text},{txtboxEMAIL.Text},{txtboxCEP.Text},{txtboxLOGRADOURO.Text},{txtboxNUMERO.Text},{txtboxBAIRRO.Text},{txtboxCIDADE.Text},{txtboxESTADO.Text},{txtboxTELEFONE.Text},{txtboxWHATSAPP.Text}");
+                            string linha = $"{txtboxNOME.Text.Trim()},{txtboxCPF.Text.Trim()},{txtboxEMAIL.Text.Trim()},{txtboxCEP.Text.Trim()},{txtboxLOGRADOURO.Text.Trim()},{txtboxNUMERO.Text.Trim()},{txtboxBAIRRO.Text.Trim()},{txtboxCIDADE.Text.Trim()},{txtboxESTADO.Text.Trim()},{txtboxTELEFONE.Text.Trim()},{txtboxWHATSAPP.Text.Trim()}";
+                            sw.WriteLine(linha);
+                            MessageBox.Show("Dados salvos com sucesso!");
+                            this.Close();
                         }
-                        MessageBox.Show("Dados salvos com sucesso!");
-                        this.Close();
                     }
 
                 }
@@ -135,6 +151,36 @@ namespace atividade
                     MessageBox.Show("Erro ao salvar os dados. Verifique as informações e tente novamente.");
                 }
             }
+        }
+
+        private bool VerificaCpf()
+        {
+            string cpf = txtboxCPF.Text.Trim();
+            if (cpf.Length != 11 || !cpf.All(char.IsDigit))
+            {
+                MessageBox.Show("CPF inválido. Deve conter 11 dígitos numéricos.");
+                return false;
+            }
+            string caminho = "cadastroClientes.csv";
+            if (!File.Exists(caminho))
+            {
+                MessageBox.Show("Arquivo de cadastro não encontrado.");
+                return false;
+            }
+            using (StreamReader sr = new StreamReader(caminho))
+            {
+                string linha;
+                while ((linha = sr.ReadLine()) != null)
+                {
+                    var colunas = linha.Split(',');
+                    if (colunas.Length > 1 && colunas[1].Trim() == cpf)
+                    {
+                        MessageBox.Show("CPF já cadastrado.");
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }
