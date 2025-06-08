@@ -153,38 +153,109 @@ namespace atividade
             {
                 try
                 {
+                    string caminhoCSV = "cadastroClientes.csv";
 
-                    string caminho = "cadastroClientes.csv";
-                    if (!File.Exists(caminho))
+                    if (btnSALVAR.Text == "Atualizar" && clienteSelecionadoAtual != null)
                     {
-                        MessageBox.Show("Arquivo de cadastro não encontrado. Criando novo arquivo.");
-                        return;
+                        try
+                        {
+                            string linhaSelecionada = listBox1.SelectedItem.ToString();
+                            string clienteOriginal = linhaSelecionada.Split('-')[0].Trim();
+
+                            string cpf = txtboxCPF.Text.Trim();
+                            using (StreamReader sr = new StreamReader(caminhoCSV))
+                            {
+                                string linha;
+                                while ((linha = sr.ReadLine()) != null)
+                                {
+                                    var colunas = linha.Split(',');
+                                    if (colunas.Length > 1 && colunas[1].Trim() == cpf)
+                                    {
+                                        MessageBox.Show("CPF já cadastrado.");
+                                        return;
+                                    }
+                                }
+
+                            }
+
+                            string[] linhas = File.ReadAllLines(caminhoCSV);
+                            for (int i = 0; i < linhas.Length; i++)
+                            {
+                                var colunas = linhas[i].Split(',');
+                                if (colunas.Length > 1 && colunas[1].Trim() == clienteSelecionadoAtual.cpf)
+                                {
+                                    linhas[i] = $"{txtboxNOME.Text.Trim()},{txtboxCPF.Text.Trim()},{txtboxEMAIL.Text.Trim()},{txtboxCEP.Text.Trim()},{txtboxLOGRADOURO.Text.Trim()},{txtboxNUMERO.Text.Trim()},{txtboxBAIRRO.Text.Trim()},{txtboxCIDADE.Text.Trim()},{txtboxESTADO.Text.Trim()},{txtboxTELEFONE.Text.Trim()},{txtboxWHATSAPP.Text.Trim()}";
+                                    break;
+                                }
+                            }
+                            File.WriteAllLines(caminhoCSV, linhas);
+                            MessageBox.Show("Dados atualizados com sucesso!");
+                            carregaDados();
+                            txtboxNOME.Clear();
+                            txtboxCPF.Clear();
+                            txtboxEMAIL.Clear();
+                            txtboxCEP.Clear();
+                            txtboxLOGRADOURO.Clear();
+                            txtboxNUMERO.Clear();
+                            txtboxBAIRRO.Clear();
+                            txtboxCIDADE.Clear();
+                            txtboxESTADO.Clear();
+                            txtboxTELEFONE.Clear();
+                            txtboxWHATSAPP.Clear();
+                            clienteSelecionadoAtual = null;
+                            btnSALVAR.Text = "Salvar";
+                            listBox1.SelectedItem = null;
+                            txtboxNOME.Focus();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Erro ao atualizar os dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                     }
                     else
                     {
-                        string cpf = txtboxCPF.Text.Trim();
-                        using (StreamReader sr = new StreamReader(caminho))
+                        try
                         {
-                            string linha;
-                            while ((linha = sr.ReadLine()) != null)
+                            string caminho = "cadastroClientes.csv";
+                            if (!File.Exists(caminho))
                             {
-                                var colunas = linha.Split(',');
-                                if (colunas.Length > 1 && colunas[1].Trim() == cpf)
+                                MessageBox.Show("Arquivo de cadastro não encontrado. Criando novo arquivo.");
+                                return;
+                            }
+                            else
+                            {
+                                string cpf = txtboxCPF.Text.Trim();
+                                using (StreamReader sr = new StreamReader(caminho))
                                 {
-                                    MessageBox.Show("CPF já cadastrado.");
-                                    return;
+                                    string linha;
+                                    while ((linha = sr.ReadLine()) != null)
+                                    {
+                                        var colunas = linha.Split(',');
+                                        if (colunas.Length > 1 && colunas[1].Trim() == cpf)
+                                        {
+                                            MessageBox.Show("CPF já cadastrado.");
+                                            return;
+                                        }
+                                    }
+
+                                }
+                                using (StreamWriter sw = new StreamWriter(caminho, true))
+                                {
+                                    string linha = $"{txtboxNOME.Text.Trim()},{txtboxCPF.Text.Trim()},{txtboxEMAIL.Text.Trim()},{txtboxCEP.Text.Trim()},{txtboxLOGRADOURO.Text.Trim()},{txtboxNUMERO.Text.Trim()},{txtboxBAIRRO.Text.Trim()},{txtboxCIDADE.Text.Trim()},{txtboxESTADO.Text.Trim()},{txtboxTELEFONE.Text.Trim()},{txtboxWHATSAPP.Text.Trim()}";
+                                    sw.WriteLine(linha);
+                                    MessageBox.Show("Dados salvos com sucesso!");
                                 }
                             }
-
                         }
-                        using (StreamWriter sw = new StreamWriter(caminho, true))
+                        catch (Exception ex)
                         {
-                            string linha = $"{txtboxNOME.Text.Trim()},{txtboxCPF.Text.Trim()},{txtboxEMAIL.Text.Trim()},{txtboxCEP.Text.Trim()},{txtboxLOGRADOURO.Text.Trim()},{txtboxNUMERO.Text.Trim()},{txtboxBAIRRO.Text.Trim()},{txtboxCIDADE.Text.Trim()},{txtboxESTADO.Text.Trim()},{txtboxTELEFONE.Text.Trim()},{txtboxWHATSAPP.Text.Trim()}";
-                            sw.WriteLine(linha);
-                            MessageBox.Show("Dados salvos com sucesso!");
+                            MessageBox.Show("Erro ao salvar os dados: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
-                    }
 
+                    }
                 }
                 catch (Exception ex)
                 {
