@@ -12,10 +12,13 @@ namespace atividade
 {
     public partial class FormCadastroPedidos : Form
     {
+        private string cpfCliente;
         public FormCadastroPedidos()
         {
             InitializeComponent();
         }
+
+       
 
         private void btnBucarCpf_Click(object sender, EventArgs e)
         {
@@ -55,7 +58,9 @@ namespace atividade
                                     {
                                         lblCliente.Text = "Cliente: " + nome; 
                                         encontrado = true;
+                                        cpfCliente = cpf; 
                                         break;
+
                                     }
                                 }
                             }
