@@ -142,6 +142,7 @@
             // 
             // btnExcluir
             // 
+            btnExcluir.Cursor = Cursors.Hand;
             btnExcluir.Location = new Point(305, 295);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.Size = new Size(75, 23);
@@ -176,6 +177,8 @@
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(368, 94);
             listBox1.TabIndex = 15;
+            listBox1.Click += listBox1_SelectedIndexChanged;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
             // FormCadastroPedidos
             // 

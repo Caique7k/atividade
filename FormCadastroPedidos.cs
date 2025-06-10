@@ -12,6 +12,7 @@ namespace atividade
 {
     public partial class FormCadastroPedidos : Form
     {
+
         private string pedidoSelecionado;
         private string cpfCliente;
         public FormCadastroPedidos()
@@ -19,8 +20,9 @@ namespace atividade
             InitializeComponent();
             BuscarProdutos();
             CarregarPedidos();
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
 
-            listBox1.DoubleClick += listBox1_DoubleClick;
+
         }
 
         private List<string> produtosSelecionados = new List<string>();
@@ -64,7 +66,7 @@ namespace atividade
                                 string cpfCliente = colunas[1].Trim();
                                 string itensPedido = colunas[2].Trim();
                                 string totalPedido = colunas[3].Trim();
-                                listBox1.Items.Add($"ID: {idPedido}, CPF: {cpfCliente}, Itens: {itensPedido}, Total: {totalPedido}");
+                                listBox1.Items.Add($"ID: {idPedido} - CPF: {cpfCliente} - Itens: {itensPedido} - Total: {totalPedido}");
                             }
                         }
                     }
@@ -215,7 +217,7 @@ namespace atividade
                     };
                     produtosSelecionados.Add($"{item.CodigoProduto},{item.NomeProduto},{item.Quantidade},{item.PrecoUnitario}");
                     MessageBox.Show($"Produto adicionado: {item.NomeProduto}, Quantidade: {item.Quantidade}, Preço Unitário: {item.PrecoUnitario:C}, TOTAL: {item.Total:C}", "Produto Adicionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                 
+
                     lblTotalPedido.Text += $"{item.NomeProduto} (Qtd: {item.Quantidade}, Preço: {item.PrecoUnitario:C}, TOTAL: {item.Total:C})\n";
 
                 }
@@ -277,9 +279,28 @@ namespace atividade
                 }
             }
         }
-        private void listBox1_DoubleClick(object sender, EventArgs e)
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-        } 
+            if (listBox1.SelectedItem != null)
+            {
+                string linhaSelecionada = listBox1.SelectedItem.ToString();
+                var partes = linhaSelecionada.Split('-');
+                if (partes.Length >= 4)
+                {
+                    pedidoSelecionado = partes[0].Replace("ID: ", "").Trim();
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Selecione um pedido válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+            }
+
+           
+        }
     }
 }
