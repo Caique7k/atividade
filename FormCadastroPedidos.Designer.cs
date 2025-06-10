@@ -140,7 +140,7 @@
             // btnFinalizar
             // 
             btnFinalizar.Cursor = Cursors.Hand;
-            btnFinalizar.Location = new Point(298, 298);
+            btnFinalizar.Location = new Point(305, 266);
             btnFinalizar.Name = "btnFinalizar";
             btnFinalizar.Size = new Size(75, 23);
             btnFinalizar.TabIndex = 11;
@@ -149,7 +149,7 @@
             // 
             // btnExcluir
             // 
-            btnExcluir.Location = new Point(217, 298);
+            btnExcluir.Location = new Point(305, 295);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.Size = new Size(75, 23);
             btnExcluir.TabIndex = 12;
@@ -171,7 +171,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(431, 333);
+            ClientSize = new Size(488, 333);
             Controls.Add(btnAddPedido);
             Controls.Add(btnExcluir);
             Controls.Add(btnFinalizar);

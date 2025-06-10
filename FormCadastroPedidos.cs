@@ -169,10 +169,10 @@ namespace atividade
                         PrecoUnitario = precoDecimal
                     };
                     produtosSelecionados.Add($"{item.CodigoProduto},{item.NomeProduto},{item.Quantidade},{item.PrecoUnitario}");
-                    MessageBox.Show($"Produto adicionado: {item.NomeProduto}, Quantidade: {item.Quantidade}, Preço Unitário: {item.PrecoUnitario:C}", "Produto Adicionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    comboBoxProdutos.SelectedItem = null; // Limpa a seleção do comboBox
-                    numericUpDown1.Value = 0; // Reseta o NumericUpDown
-                    lblTotalPedido.Text += $"{item.NomeProduto} (Qtd: {item.Quantidade}, Preço: {item.PrecoUnitario:C})\n";
+                    MessageBox.Show($"Produto adicionado: {item.NomeProduto}, Quantidade: {item.Quantidade}, Preço Unitário: {item.PrecoUnitario:C}, TOTAL: {item.Total:C}", "Produto Adicionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    comboBoxProdutos.SelectedItem = null; 
+                    numericUpDown1.Value = 0; 
+                    lblTotalPedido.Text += $"{item.NomeProduto} (Qtd: {item.Quantidade}, Preço: {item.PrecoUnitario:C}, TOTAL: {item.Total:C})\n";
 
                 }
                 catch (Exception ex)
