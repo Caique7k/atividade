@@ -12,12 +12,15 @@ namespace atividade
 {
     public partial class FormCadastroPedidos : Form
     {
+        private string pedidoSelecionado;
         private string cpfCliente;
         public FormCadastroPedidos()
         {
             InitializeComponent();
             BuscarProdutos();
             CarregarPedidos();
+
+            listBox1.DoubleClick += listBox1_DoubleClick;
         }
 
         private List<string> produtosSelecionados = new List<string>();
@@ -30,6 +33,11 @@ namespace atividade
             public decimal PrecoUnitario { get; set; }
             public decimal Total => Quantidade * PrecoUnitario;
 
+        }
+
+        public class PedidoSelecionado
+        {
+            public string idPedido { get; set; }
         }
         private void CarregarPedidos()
         {
@@ -269,5 +277,9 @@ namespace atividade
                 }
             }
         }
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+
+        } 
     }
 }
