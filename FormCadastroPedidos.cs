@@ -290,7 +290,7 @@ namespace atividade
                 if (partes.Length >= 4)
                 {
                     pedidoSelecionado = partes[0].Replace("ID: ", "").Trim();
-                    
+
                 }
                 else
                 {
@@ -300,7 +300,44 @@ namespace atividade
 
             }
 
-           
+
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (pedidoSelecionado == null)
+            {
+                MessageBox.Show("Por favor, selecione um pedido para excluir.");
+                return;
+            }
+            else
+            {
+                var confirmar = MessageBox.Show($"Deseja realmente excluir o pedido '{pedidoSelecionado}'?", "Confirmar exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirmar == DialogResult.Yes)
+                {
+                    try
+                    {
+                        string caminhoCSV = "pedidos.csv";
+                        if (!File.Exists(caminhoCSV))
+                        {
+                            MessageBox.Show("Arquivo de pedidos não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            var linhas = File.ReadAllLines(caminhoCSV).Where(l => !l.StartsWith(pedidoSelecionado + ",")).ToList();
+                            File.WriteAllLines(caminhoCSV, linhas);
+                            CarregarPedidos();
+                            MessageBox.Show($"Pedido {pedidoSelecionado} excluído com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            pedidoSelecionado = null;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao excluir pedido: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }
