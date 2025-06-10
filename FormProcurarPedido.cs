@@ -43,7 +43,7 @@ namespace atividade
             foreach (var linha in File.ReadLines(caminho))
             {
                 var colunas = linha.Split(',');
-                if(colunas.Length >= 4 && colunas[1] == cpf) 
+                if (colunas.Length >= 4 && colunas[1] == cpf)
                 {
                     string idPedido = colunas[0].Trim();
                     string totalPedido = colunas[3].Trim();
@@ -53,7 +53,7 @@ namespace atividade
                     item.Tag = linha;
                     listViewPedidos.Items.Add(item);
                 }
-                
+
             }
         }
 
@@ -80,6 +80,14 @@ namespace atividade
                     listViewItens.Items.Add(item);
                 }
             }
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            txtboxCPF.Clear();
+            listViewItens.Items.Clear();
+            listViewPedidos.Items.Clear();
+
         }
     }
 }

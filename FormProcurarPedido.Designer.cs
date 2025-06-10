@@ -39,6 +39,7 @@
             PREÇO = new ColumnHeader();
             label2 = new Label();
             label3 = new Label();
+            btnLimpar = new Button();
             SuspendLayout();
             // 
             // label1
@@ -123,11 +124,23 @@
             label3.TabIndex = 6;
             label3.Text = "ITENS";
             // 
+            // btnLimpar
+            // 
+            btnLimpar.Cursor = Cursors.Hand;
+            btnLimpar.Location = new Point(216, 39);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.Size = new Size(75, 23);
+            btnLimpar.TabIndex = 7;
+            btnLimpar.Text = "LIMPAR";
+            btnLimpar.UseVisualStyleBackColor = true;
+            btnLimpar.Click += btnLimpar_Click;
+            // 
             // FormProcurarPedido
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(302, 322);
+            Controls.Add(btnLimpar);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(listViewItens);
@@ -154,5 +167,6 @@
         private ColumnHeader TOTAL;
         private ColumnHeader PRODUTOS;
         private ColumnHeader PREÇO;
+        private Button btnLimpar;
     }
 }
