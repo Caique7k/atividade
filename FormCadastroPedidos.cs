@@ -252,7 +252,7 @@ namespace atividade
                             sw.WriteLine($"{idPedido},{cpfCliente},\"{itensPedido}\",{totalItensPedido.ToString("F2")}");
 
                         }
-                        listBox1.Items.Add($"Pedido ID: {idPedido} - CPF Cliente: {cpfCliente} - Itens: {itensPedido} -  Total: {totalItensPedido.ToString("F2")}");
+                        CarregarPedidos();
 
                         MessageBox.Show($"Pedido {idPedido} finalizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         txtboxIdPedido.Clear();
