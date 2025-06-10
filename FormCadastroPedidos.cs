@@ -17,6 +17,7 @@ namespace atividade
         {
             InitializeComponent();
             BuscarProdutos();
+            CarregarPedidos();
         }
 
         private List<string> produtosSelecionados = new List<string>();
@@ -29,6 +30,42 @@ namespace atividade
             public decimal PrecoUnitario { get; set; }
             public decimal Total => Quantidade * PrecoUnitario;
 
+        }
+        private void CarregarPedidos()
+        {
+            try
+            {
+                string caminhoCSV = "pedidos.csv";
+                if (!File.Exists(caminhoCSV))
+                {
+                    MessageBox.Show("Arquivo de pedidos não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                using (var reader = new StreamReader(caminhoCSV))
+                {
+                    listBox1.Items.Clear();
+                    while (!reader.EndOfStream)
+                    {
+                        var linha = reader.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(linha))
+                        {
+                            var colunas = linha.Split(',');
+                            if (colunas.Length >= 4)
+                            {
+                                string idPedido = colunas[0].Trim();
+                                string cpfCliente = colunas[1].Trim();
+                                string itensPedido = colunas[2].Trim();
+                                string totalPedido = colunas[3].Trim();
+                                listBox1.Items.Add($"ID: {idPedido}, CPF: {cpfCliente}, Itens: {itensPedido}, Total: {totalPedido}");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar pedidos: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void BuscarProdutos()
         {
@@ -170,8 +207,7 @@ namespace atividade
                     };
                     produtosSelecionados.Add($"{item.CodigoProduto},{item.NomeProduto},{item.Quantidade},{item.PrecoUnitario}");
                     MessageBox.Show($"Produto adicionado: {item.NomeProduto}, Quantidade: {item.Quantidade}, Preço Unitário: {item.PrecoUnitario:C}, TOTAL: {item.Total:C}", "Produto Adicionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    comboBoxProdutos.SelectedItem = null;
-                    numericUpDown1.Value = 0;
+                 
                     lblTotalPedido.Text += $"{item.NomeProduto} (Qtd: {item.Quantidade}, Preço: {item.PrecoUnitario:C}, TOTAL: {item.Total:C})\n";
 
                 }
@@ -210,11 +246,14 @@ namespace atividade
 
                         var nomeProdutos = produtosSelecionados.Select(p => p.Split(',')[1]).ToList();
                         string itensPedido = string.Join(";", nomeProdutos);
+                        decimal totalItensPedido = produtosSelecionados.Sum(p => decimal.Parse(p.Split(',')[3]) * int.Parse(p.Split(',')[2]));
                         using (StreamWriter sw = new StreamWriter(caminhoCSV, true))
                         {
-                            sw.WriteLine($"{idPedido},{cpfCliente},\"{itensPedido}\",{totalPedido.ToString("F2")}");
+                            sw.WriteLine($"{idPedido},{cpfCliente},\"{itensPedido}\",{totalItensPedido.ToString("F2")}");
 
                         }
+                        listBox1.Items.Add($"Pedido ID: {idPedido} - CPF Cliente: {cpfCliente} - Itens: {itensPedido} -  Total: {totalItensPedido.ToString("F2")}");
+
                         MessageBox.Show($"Pedido {idPedido} finalizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         txtboxIdPedido.Clear();
                         txtBoxCpfCliente.Clear();
