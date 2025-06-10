@@ -42,6 +42,7 @@
             btnFinalizar = new Button();
             btnExcluir = new Button();
             btnAddPedido = new Button();
+            lblTotal = new Label();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -167,11 +168,20 @@
             btnAddPedido.UseVisualStyleBackColor = true;
             btnAddPedido.Click += btnAddPedido_Click;
             // 
+            // lblTotal
+            // 
+            lblTotal.AutoSize = true;
+            lblTotal.Location = new Point(386, 196);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(0, 15);
+            lblTotal.TabIndex = 14;
+            // 
             // FormCadastroPedidos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(488, 333);
+            ClientSize = new Size(557, 333);
+            Controls.Add(lblTotal);
             Controls.Add(btnAddPedido);
             Controls.Add(btnExcluir);
             Controls.Add(btnFinalizar);
@@ -209,5 +219,6 @@
         private Button btnFinalizar;
         private Button btnExcluir;
         private Button btnAddPedido;
+        private Label lblTotal;
     }
 }

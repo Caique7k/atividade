@@ -173,6 +173,7 @@ namespace atividade
                     comboBoxProdutos.SelectedItem = null; 
                     numericUpDown1.Value = 0; 
                     lblTotalPedido.Text += $"{item.NomeProduto} (Qtd: {item.Quantidade}, Preço: {item.PrecoUnitario:C}, TOTAL: {item.Total:C})\n";
+                    lblTotal.Text = $"Total do Pedido: {produtosSelecionados.Sum(p => decimal.Parse(p.Split(',')[3]) * int.Parse(p.Split(',')[2])):C}";
 
                 }
                 catch (Exception ex)
