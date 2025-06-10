@@ -192,6 +192,8 @@ namespace atividade
 
                 try
                 {
+
+                   
                     using (StreamReader sr = new StreamReader(caminhoCSV))
                     {
                         while (!sr.EndOfStream)
@@ -219,7 +221,6 @@ namespace atividade
                     MessageBox.Show($"Produto adicionado: {item.NomeProduto}, Quantidade: {item.Quantidade}, Preço Unitário: {item.PrecoUnitario:C}, TOTAL: {item.Total:C}", "Produto Adicionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     lblTotalPedido.Text += $"{item.NomeProduto} (Qtd: {item.Quantidade}, Preço: {item.PrecoUnitario:C}, TOTAL: {item.Total:C})\n";
-
                 }
                 catch (Exception ex)
                 {
@@ -240,18 +241,20 @@ namespace atividade
             {
                 try
                 {
-
                     string caminhoCSV = "pedidos.csv";
-                    string caminhoCSVItensPedido = "itens_pedido.csv";
-                    string codigoPedido = txtboxIdPedido.Text.Trim();
-                    decimal totalPedido = 0;
-                    if (!File.Exists(caminhoCSV))
+                    var linhas = File.ReadAllLines(caminhoCSV);
+                    string idProd = txtboxIdPedido.Text.Trim();
+                    foreach (var linha in linhas)
                     {
-                        MessageBox.Show("Arquivo de pedidos não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        var colunas = linha.Split(',');
+                        if (colunas.Length >= 4 && colunas[0].Trim().Equals(idProd, StringComparison.OrdinalIgnoreCase))
+                        {
+                            MessageBox.Show("ID do pedido já existe. Por favor, insira um ID único.");
+                            return;
+                        }
+
                     }
-                    else
-                    {
+                  
                         string idPedido = txtboxIdPedido.Text.Trim();
 
                         var nomeProdutos = produtosSelecionados.Select(p => p.Split(',')[1]).ToList();
@@ -269,7 +272,7 @@ namespace atividade
                         txtBoxCpfCliente.Clear();
                         lblTotal.Text = "";
                         lblTotalPedido.Text = "";
-                    }
+                    
 
                 }
                 catch (Exception ex)
