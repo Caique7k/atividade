@@ -43,6 +43,7 @@
             btnAddPedido = new Button();
             lblTotal = new Label();
             listBox1 = new ListBox();
+            btnProcurar = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -181,11 +182,22 @@
             listBox1.Click += listBox1_SelectedIndexChanged;
             listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
+            // btnProcurar
+            // 
+            btnProcurar.Cursor = Cursors.Hand;
+            btnProcurar.Location = new Point(399, 282);
+            btnProcurar.Name = "btnProcurar";
+            btnProcurar.Size = new Size(75, 23);
+            btnProcurar.TabIndex = 16;
+            btnProcurar.Text = "Procurar";
+            btnProcurar.UseVisualStyleBackColor = true;
+            // 
             // FormCadastroPedidos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(557, 333);
+            Controls.Add(btnProcurar);
             Controls.Add(listBox1);
             Controls.Add(lblTotal);
             Controls.Add(btnAddPedido);
@@ -225,5 +237,6 @@
         private Button btnAddPedido;
         private Label lblTotal;
         private ListBox listBox1;
+        private Button btnProcurar;
     }
 }
