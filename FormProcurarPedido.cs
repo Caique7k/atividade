@@ -26,7 +26,19 @@ namespace atividade
                 MessageBox.Show("Por favor, insira um CPF válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            carregarPedido(cpf);
+
+            string nomeCliente = buscaCliente(cpf);
+
+            if (nomeCliente == null)
+            {
+                MessageBox.Show("Cliente não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                carregarPedido(cpf);
+            }
+
 
         }
         private void carregarPedido(string cpf)
@@ -88,6 +100,25 @@ namespace atividade
             listViewItens.Items.Clear();
             listViewPedidos.Items.Clear();
 
+        }
+       private string buscaCliente(string cpf)
+        {
+            string caminho = "cadastroClientes.csv";
+            if (!File.Exists(caminho))
+            {
+                MessageBox.Show("Arquivo de clientes não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            foreach (var linha in File.ReadAllLines(caminho))
+            {
+                var dados = linha.Split(',');
+                if (dados.Length >= 2 && dados[1].Trim() == cpf)
+                {
+                    return dados[0].Trim(); 
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -247,6 +247,7 @@ namespace atividade
                                     sw.WriteLine(linha);
                                     MessageBox.Show("Dados salvos com sucesso!");
                                 }
+                                carregaDados();
                             }
                         }
                         catch (Exception ex)
