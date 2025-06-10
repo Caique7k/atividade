@@ -193,7 +193,7 @@ namespace atividade
                 try
                 {
 
-                   
+
                     using (StreamReader sr = new StreamReader(caminhoCSV))
                     {
                         while (!sr.EndOfStream)
@@ -210,7 +210,8 @@ namespace atividade
                     }
                     bool produtoExistente = produtosSelecionados.Any(p => p.StartsWith(codigoProduto + ","));
 
-                    if (produtoExistente) { 
+                    if (produtoExistente)
+                    {
                         MessageBox.Show("Produto já adicionado ao pedido. Por favor, selecione outro produto.", "Produto Existente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
@@ -287,7 +288,7 @@ namespace atividade
                         lblTotal.Text = "";
                         lblTotalPedido.Text = "";
                     }
-                    
+
 
                 }
                 catch (Exception ex)
@@ -356,6 +357,12 @@ namespace atividade
                     }
                 }
             }
+        }
+
+        private void btnProcurar_Click(object sender, EventArgs e)
+        {
+            FormProcurarPedido formProcurarPedido = new FormProcurarPedido();
+            formProcurarPedido.ShowDialog();
         }
     }
 }

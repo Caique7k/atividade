@@ -12,11 +12,26 @@ namespace atividade
 {
     public partial class FormProcurarPedido : Form
     {
-        public string Cpf { get; set; }
-        public FormProcurarPedido(string cpf)
+
+        public FormProcurarPedido()
         {
             InitializeComponent();
-            Cpf = cpf;
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string cpf = txtboxCPF.Text.Trim();
+            if (string.IsNullOrEmpty(cpf))
+            {
+                MessageBox.Show("Por favor, insira um CPF válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            carregarPedido(cpf);
+
+        }
+        private void carregarPedido(string cpf)
+        {
+
         }
     }
 }

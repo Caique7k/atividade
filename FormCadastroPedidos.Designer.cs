@@ -191,6 +191,7 @@
             btnProcurar.TabIndex = 16;
             btnProcurar.Text = "Procurar";
             btnProcurar.UseVisualStyleBackColor = true;
+            btnProcurar.Click += btnProcurar_Click;
             // 
             // FormCadastroPedidos
             // 
