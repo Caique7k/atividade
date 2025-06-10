@@ -59,7 +59,27 @@ namespace atividade
 
         private void listViewPedidos_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (listViewPedidos.SelectedItems.Count == 0)
+            {
+                return;
+            }
+            listViewItens.Items.Clear();
+            var itemSelecionado = listViewPedidos.SelectedItems[0];
+            var linha = itemSelecionado.Tag.ToString();
+            var colunas = linha.Split(',');
+            if (colunas.Length >= 4)
+            {
+                string produtos = colunas[2].Trim();
+                string[] itens = produtos.Split(';');
 
+                decimal totalPedido = decimal.Parse(colunas[3].Trim());
+                foreach (var produto in itens)
+                {
+                    var item = new ListViewItem(produto.Trim());
+                    item.SubItems.Add(totalPedido.ToString("C2"));
+                    listViewItens.Items.Add(item);
+                }
+            }
         }
     }
 }
