@@ -192,7 +192,47 @@ namespace atividade
             }
             else
             {
+                try
+                {
 
+                    string caminhoCSV = "pedidos.csv";
+                    string caminhoCSVItensPedido = "itens_pedido.csv";
+                    string codigoPedido = txtboxIdPedido.Text.Trim();
+                    decimal totalPedido = 0;
+                    if (!File.Exists(caminhoCSV))
+                    {
+                        MessageBox.Show("Arquivo de pedidos não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        using (StreamWriter swItens = new StreamWriter(caminhoCSVItensPedido))
+                        {
+                            foreach (var produto in produtosSelecionados)
+                            {
+                                // produto.Split(',') deve conter: codigoProduto,nomeProduto,quantidade,precoUnitario
+                                var dados = produto.Split(',');
+
+                                string codigoProduto = dados[0].Trim();
+                                string nomeProduto = dados[1].Trim();
+                                int quantidade = int.Parse(dados[2].Trim());
+                                decimal precoUnitario = decimal.Parse(dados[3].Trim());
+                                decimal totalItem = quantidade * precoUnitario;
+
+                                totalPedido += totalItem;
+
+                                swItens.WriteLine($"{codigoPedido},{codigoProduto},{nomeProduto},{quantidade},{precoUnitario},{totalItem}");
+                            }
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao finalizar pedido: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
         }
     }
