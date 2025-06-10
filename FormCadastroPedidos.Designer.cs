@@ -41,6 +41,7 @@
             lblTotalPedido = new Label();
             btnFinalizar = new Button();
             btnExcluir = new Button();
+            btnAddPedido = new Button();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -125,7 +126,7 @@
             listBox1.ItemHeight = 15;
             listBox1.Location = new Point(12, 166);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(280, 94);
+            listBox1.Size = new Size(368, 94);
             listBox1.TabIndex = 9;
             // 
             // lblTotalPedido
@@ -139,7 +140,7 @@
             // btnFinalizar
             // 
             btnFinalizar.Cursor = Cursors.Hand;
-            btnFinalizar.Location = new Point(217, 269);
+            btnFinalizar.Location = new Point(298, 298);
             btnFinalizar.Name = "btnFinalizar";
             btnFinalizar.Size = new Size(75, 23);
             btnFinalizar.TabIndex = 11;
@@ -155,11 +156,23 @@
             btnExcluir.Text = "Excluir";
             btnExcluir.UseVisualStyleBackColor = true;
             // 
+            // btnAddPedido
+            // 
+            btnAddPedido.Cursor = Cursors.Hand;
+            btnAddPedido.Location = new Point(276, 125);
+            btnAddPedido.Name = "btnAddPedido";
+            btnAddPedido.Size = new Size(143, 21);
+            btnAddPedido.TabIndex = 13;
+            btnAddPedido.Text = "ADICIONAR AO PEDIDO";
+            btnAddPedido.UseVisualStyleBackColor = true;
+            btnAddPedido.Click += btnAddPedido_Click;
+            // 
             // FormCadastroPedidos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(315, 333);
+            ClientSize = new Size(431, 333);
+            Controls.Add(btnAddPedido);
             Controls.Add(btnExcluir);
             Controls.Add(btnFinalizar);
             Controls.Add(lblTotalPedido);
@@ -195,5 +208,6 @@
         private Label lblTotalPedido;
         private Button btnFinalizar;
         private Button btnExcluir;
+        private Button btnAddPedido;
     }
 }

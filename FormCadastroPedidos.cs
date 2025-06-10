@@ -19,7 +19,18 @@ namespace atividade
             BuscarProdutos();
         }
 
-       private void BuscarProdutos()
+        private List<string> produtosSelecionados = new List<string>();
+
+        public class ItemPedido
+        {
+            public string CodigoProduto { get; set; }
+            public string NomeProduto { get; set; }
+            public int Quantidade { get; set; }
+            public decimal PrecoUnitario { get; set; }
+            public decimal Total => Quantidade * PrecoUnitario;
+
+        }
+        private void BuscarProdutos()
         {
             try
             {
@@ -90,9 +101,9 @@ namespace atividade
 
                                     if (cpf == cpfDigitado)
                                     {
-                                        lblCliente.Text = "Cliente: " + nome; 
+                                        lblCliente.Text = "Cliente: " + nome;
                                         encontrado = true;
-                                        cpfCliente = cpf; 
+                                        cpfCliente = cpf;
                                         break;
 
                                     }
@@ -105,13 +116,69 @@ namespace atividade
                             MessageBox.Show("CPF não encontrado.");
                             lblCliente.Text = "Cliente: não encontrado";
                         }
-                    
+
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Erro ao buscar CPF: {ex.Message}");
                         return;
                     }
+                }
+            }
+        }
+
+        private void btnAddPedido_Click(object sender, EventArgs e)
+        {
+            if (comboBoxProdutos.SelectedItem == null && numericUpDown1.Value == 0)
+            {
+                MessageBox.Show("Por favor, selecione um produto e uma quantidade.");
+                return;
+            }
+            else
+            {
+                string nomeProduto = comboBoxProdutos.SelectedItem.ToString();
+                int quantidade = (int)numericUpDown1.Value;
+                decimal precoUnitario = 0;
+                string caminhoCSV = "cadastroProdutos.csv";
+                string codigoProduto = "";
+                string precoProduto = "";
+
+                try
+                {
+                    using (StreamReader sr = new StreamReader(caminhoCSV))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            var linha = sr.ReadLine();
+                            var colunas = linha.Split(',');
+                            if (colunas[1].Trim() == nomeProduto)
+                            {
+                                codigoProduto = colunas[0].Trim(); // Código do produto
+                                precoProduto = colunas[2].Trim(); // Preço do produto
+                                break;
+                            }
+                        }
+                    }
+                    decimal precoDecimal = decimal.Parse(precoProduto);
+
+                    var item = new ItemPedido
+                    {
+                        CodigoProduto = codigoProduto,
+                        NomeProduto = nomeProduto,
+                        Quantidade = quantidade,
+                        PrecoUnitario = precoDecimal
+                    };
+                    produtosSelecionados.Add($"{item.CodigoProduto},{item.NomeProduto},{item.Quantidade},{item.PrecoUnitario}");
+                    MessageBox.Show($"Produto adicionado: {item.NomeProduto}, Quantidade: {item.Quantidade}, Preço Unitário: {item.PrecoUnitario:C}", "Produto Adicionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    comboBoxProdutos.SelectedItem = null; // Limpa a seleção do comboBox
+                    numericUpDown1.Value = 0; // Reseta o NumericUpDown
+                    lblTotalPedido.Text += $"{item.NomeProduto} (Qtd: {item.Quantidade}, Preço: {item.PrecoUnitario:C})\n";
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao adicionar produto: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
             }
         }
