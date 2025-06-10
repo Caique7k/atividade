@@ -254,7 +254,14 @@ namespace atividade
                         }
 
                     }
-                  
+
+                    if (lblCliente.Text == "Cliente: não encontrado")
+                    {
+                        MessageBox.Show("Por favor, busque um cliente válido antes de finalizar o pedido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
                         string idPedido = txtboxIdPedido.Text.Trim();
 
                         var nomeProdutos = produtosSelecionados.Select(p => p.Split(',')[1]).ToList();
@@ -272,6 +279,7 @@ namespace atividade
                         txtBoxCpfCliente.Clear();
                         lblTotal.Text = "";
                         lblTotalPedido.Text = "";
+                    }
                     
 
                 }
