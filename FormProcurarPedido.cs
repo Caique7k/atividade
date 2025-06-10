@@ -31,6 +31,34 @@ namespace atividade
         }
         private void carregarPedido(string cpf)
         {
+            listViewItens.Items.Clear();
+            listViewPedidos.Items.Clear();
+
+            string caminho = "pedidos.csv";
+            if (!File.Exists(caminho))
+            {
+                MessageBox.Show("Arquivo de pedidos não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            foreach (var linha in File.ReadLines(caminho))
+            {
+                var colunas = linha.Split(',');
+                if(colunas.Length >= 4 && colunas[1] == cpf) 
+                {
+                    string idPedido = colunas[0].Trim();
+                    string totalPedido = colunas[3].Trim();
+
+                    var item = new ListViewItem(idPedido);
+                    item.SubItems.Add($"{TOTAL}");
+                    item.Tag = linha;
+                    listViewPedidos.Items.Add(item);
+                }
+                
+            }
+        }
+
+        private void listViewPedidos_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

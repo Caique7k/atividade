@@ -32,7 +32,11 @@
             btnBuscar = new Button();
             txtboxCPF = new TextBox();
             listViewPedidos = new ListView();
+            ID = new ColumnHeader();
+            TOTAL = new ColumnHeader();
             listViewItens = new ListView();
+            PRODUTOS = new ColumnHeader();
+            PREÇO = new ColumnHeader();
             label2 = new Label();
             label3 = new Label();
             SuspendLayout();
@@ -66,19 +70,40 @@
             // 
             // listViewPedidos
             // 
+            listViewPedidos.Columns.AddRange(new ColumnHeader[] { ID, TOTAL });
             listViewPedidos.Location = new Point(12, 68);
             listViewPedidos.Name = "listViewPedidos";
             listViewPedidos.Size = new Size(279, 97);
             listViewPedidos.TabIndex = 3;
             listViewPedidos.UseCompatibleStateImageBehavior = false;
+            listViewPedidos.View = View.Details;
+            listViewPedidos.SelectedIndexChanged += listViewPedidos_SelectedIndexChanged;
+            // 
+            // ID
+            // 
+            ID.Text = "ID";
+            // 
+            // TOTAL
+            // 
+            TOTAL.Text = "TOTAL";
             // 
             // listViewItens
             // 
+            listViewItens.Columns.AddRange(new ColumnHeader[] { PRODUTOS, PREÇO });
             listViewItens.Location = new Point(12, 200);
             listViewItens.Name = "listViewItens";
             listViewItens.Size = new Size(279, 97);
             listViewItens.TabIndex = 4;
             listViewItens.UseCompatibleStateImageBehavior = false;
+            listViewItens.View = View.Details;
+            // 
+            // PRODUTOS
+            // 
+            PRODUTOS.Text = "PRODUTOS";
+            // 
+            // PREÇO
+            // 
+            PREÇO.Text = "PREÇO";
             // 
             // label2
             // 
@@ -125,5 +150,9 @@
         private ListView listViewItens;
         private Label label2;
         private Label label3;
+        private ColumnHeader ID;
+        private ColumnHeader TOTAL;
+        private ColumnHeader PRODUTOS;
+        private ColumnHeader PREÇO;
     }
 }
