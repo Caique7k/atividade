@@ -208,6 +208,13 @@ namespace atividade
                             }
                         }
                     }
+                    bool produtoExistente = produtosSelecionados.Any(p => p.StartsWith(codigoProduto + ","));
+
+                    if (produtoExistente) { 
+                        MessageBox.Show("Produto já adicionado ao pedido. Por favor, selecione outro produto.", "Produto Existente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     decimal precoDecimal = decimal.Parse(precoProduto);
 
                     var item = new ItemPedido
