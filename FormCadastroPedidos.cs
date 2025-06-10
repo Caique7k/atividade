@@ -206,25 +206,20 @@ namespace atividade
                     }
                     else
                     {
-                        using (StreamWriter swItens = new StreamWriter(caminhoCSVItensPedido))
+                        string idPedido = txtboxIdPedido.Text.Trim();
+
+                        var nomeProdutos = produtosSelecionados.Select(p => p.Split(',')[1]).ToList();
+                        string itensPedido = string.Join(";", nomeProdutos);
+                        using (StreamWriter sw = new StreamWriter(caminhoCSV, true))
                         {
-                            foreach (var produto in produtosSelecionados)
-                            {
-                                // produto.Split(',') deve conter: codigoProduto,nomeProduto,quantidade,precoUnitario
-                                var dados = produto.Split(',');
+                            sw.WriteLine($"{idPedido},{cpfCliente},\"{itensPedido}\",{totalPedido.ToString("F2")}");
 
-                                string codigoProduto = dados[0].Trim();
-                                string nomeProduto = dados[1].Trim();
-                                int quantidade = int.Parse(dados[2].Trim());
-                                decimal precoUnitario = decimal.Parse(dados[3].Trim());
-                                decimal totalItem = quantidade * precoUnitario;
-
-                                totalPedido += totalItem;
-
-                                swItens.WriteLine($"{codigoPedido},{codigoProduto},{nomeProduto},{quantidade},{precoUnitario},{totalItem}");
-                            }
                         }
-
+                        MessageBox.Show($"Pedido {idPedido} finalizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtboxIdPedido.Clear();
+                        txtBoxCpfCliente.Clear();
+                        lblTotal.Text = "";
+                        lblTotalPedido.Text = "";
                     }
 
                 }
