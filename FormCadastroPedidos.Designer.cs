@@ -37,12 +37,12 @@
             label3 = new Label();
             comboBoxProdutos = new ComboBox();
             numericUpDown1 = new NumericUpDown();
-            listBox1 = new ListBox();
             lblTotalPedido = new Label();
             btnFinalizar = new Button();
             btnExcluir = new Button();
             btnAddPedido = new Button();
             lblTotal = new Label();
+            listBox1 = new ListBox();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
@@ -121,15 +121,6 @@
             numericUpDown1.Size = new Size(40, 23);
             numericUpDown1.TabIndex = 8;
             // 
-            // listBox1
-            // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(12, 166);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(368, 94);
-            listBox1.TabIndex = 9;
-            // 
             // lblTotalPedido
             // 
             lblTotalPedido.AutoSize = true;
@@ -147,6 +138,7 @@
             btnFinalizar.TabIndex = 11;
             btnFinalizar.Text = "Finalizar";
             btnFinalizar.UseVisualStyleBackColor = true;
+            btnFinalizar.Click += btnFinalizar_Click;
             // 
             // btnExcluir
             // 
@@ -176,17 +168,26 @@
             lblTotal.Size = new Size(0, 15);
             lblTotal.TabIndex = 14;
             // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 15;
+            listBox1.Location = new Point(12, 151);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(368, 94);
+            listBox1.TabIndex = 15;
+            // 
             // FormCadastroPedidos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(557, 333);
+            Controls.Add(listBox1);
             Controls.Add(lblTotal);
             Controls.Add(btnAddPedido);
             Controls.Add(btnExcluir);
             Controls.Add(btnFinalizar);
             Controls.Add(lblTotalPedido);
-            Controls.Add(listBox1);
             Controls.Add(numericUpDown1);
             Controls.Add(comboBoxProdutos);
             Controls.Add(label3);
@@ -214,11 +215,11 @@
         private Label label3;
         private ComboBox comboBoxProdutos;
         private NumericUpDown numericUpDown1;
-        private ListBox listBox1;
         private Label lblTotalPedido;
         private Button btnFinalizar;
         private Button btnExcluir;
         private Button btnAddPedido;
         private Label lblTotal;
+        private ListBox listBox1;
     }
 }

@@ -170,10 +170,9 @@ namespace atividade
                     };
                     produtosSelecionados.Add($"{item.CodigoProduto},{item.NomeProduto},{item.Quantidade},{item.PrecoUnitario}");
                     MessageBox.Show($"Produto adicionado: {item.NomeProduto}, Quantidade: {item.Quantidade}, Preço Unitário: {item.PrecoUnitario:C}, TOTAL: {item.Total:C}", "Produto Adicionado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    comboBoxProdutos.SelectedItem = null; 
-                    numericUpDown1.Value = 0; 
+                    comboBoxProdutos.SelectedItem = null;
+                    numericUpDown1.Value = 0;
                     lblTotalPedido.Text += $"{item.NomeProduto} (Qtd: {item.Quantidade}, Preço: {item.PrecoUnitario:C}, TOTAL: {item.Total:C})\n";
-                    lblTotal.Text = $"Total do Pedido: {produtosSelecionados.Sum(p => decimal.Parse(p.Split(',')[3]) * int.Parse(p.Split(',')[2])):C}";
 
                 }
                 catch (Exception ex)
@@ -181,6 +180,19 @@ namespace atividade
                     MessageBox.Show($"Erro ao adicionar produto: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+            }
+        }
+
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtboxIdPedido.Text) || string.IsNullOrEmpty(txtBoxCpfCliente.Text) || comboBoxProdutos.SelectedItem == null)
+            {
+                MessageBox.Show("Por favor, preencha todos os campos obrigatórios.");
+                return;
+            }
+            else
+            {
+
             }
         }
     }
